@@ -106,14 +106,10 @@ void linearTest(const Vec2 &destPosition) {
 }
 
 void loop() {
-    return;
-    int nMotors = sizeof(motors) / sizeof(accelstepper);
-	Vec2 command = { 1, 1 };
-	command = normalize(command);
-    // translateAngle(sin(millis() / 1000.0f));
-    translate({ 1, 1 }, 1);
-    //translateAngle(1);
-
-	for(int i = 0; i < nMotors; i++)
-		motors[i].step();
+    float time = millis() / 1000.0;
+    Vec2 cmd = { cos(time), sin(time) };
+    cmd = normalize(cmd);
+    translate(cmd, 0);
+    for(int i = 0; i < (sizeof(motors) / sizeof(accelstepper)); i++)
+        motors[i].step();
 }
